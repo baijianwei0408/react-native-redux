@@ -7,18 +7,14 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import { connect } from "react-redux";
-import { getListAction } from "../actions/listAction";
-import { apiRequest, requestApi } from "../api/requestApi";
-import { ACTION_GET_LIST, GET_LIST } from "../actions";
+import { requestApi } from "../api/requestApi";
+import { ACTION_LIST_GET_LIST } from "../actions";
 
 class Main extends Component {
 
     constructor(props) {
         super(props)
 
-
-        // this.props.dispatch(getListAction)
-        this.props.getList()
     }
 
 
@@ -27,8 +23,8 @@ class Main extends Component {
 
         return (
             <ScrollView style={styles.container}>
-                <TouchableOpacity>
-                    <Text>改变文字按钮 </Text>
+                <TouchableOpacity onPress={() => this.props.getList()}>
+                    <Text>点击发送请求 </Text>
                 </TouchableOpacity>
 
                 {
@@ -47,9 +43,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { list } = state
+    const { listReducer } = state
     return {
-        list: list.data
+        list: listReducer.data
     }
 }
 
@@ -57,7 +53,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getList: () => requestApi({
             dispatch,
-            type: ACTION_GET_LIST,
+            type: ACTION_LIST_GET_LIST,
             url: 'http://jsonplaceholder.typicode.com/posts',
             method: 'get',
         })

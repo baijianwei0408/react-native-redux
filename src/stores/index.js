@@ -1,5 +1,5 @@
 import rootReducer from '../reducers';
-import { createStore, compose, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from "redux-thunk";
 import test from "../middleware/test"; // redux异步请求
 
